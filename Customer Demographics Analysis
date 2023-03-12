@@ -1,0 +1,31 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the data into a pandas dataframe
+data = pd.read_csv('customer_demographics.csv')
+
+# Calculate the age and gender distribution
+age_distribution = data['age'].value_counts().sort_index()
+gender_distribution = data['gender'].value_counts()
+
+# Plot the age and gender distribution
+plt.bar(age_distribution.index, age_distribution.values)
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.title('Age Distribution')
+plt.show()
+
+plt.bar(gender_distribution.index, gender_distribution.values)
+plt.xlabel('Gender')
+plt.ylabel('Count')
+plt.title('Gender Distribution')
+plt.show()
+
+# Print out the income levels and geographic location
+income_levels = data['income'].value_counts().head()
+print('Income Levels:')
+print(income_levels)
+
+geo_distribution = data.groupby(['country', 'state'])['state'].count().sort_values(ascending=False).head()
+print('Geographic Distribution:')
+print(geo_distribution)
